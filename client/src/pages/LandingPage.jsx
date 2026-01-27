@@ -1,216 +1,203 @@
 import React from "react";
 import HeroCarousel from "../components/common/HeroCarousel.jsx";
+import VideoCarousel from "../components/common/VideoCarousel.jsx";
+import ProductCarousel from "../components/common/ProductCarousel.jsx";
+import ScrollToTop from "../components/common/ScrollToTop.jsx";
 import headerImage from "../assets/header.avif";
 import { motion } from "framer-motion";
+import img1 from "../assets/heroImages/1.avif";
+import img2 from "../assets/heroImages/2.webp";
+import img3 from "../assets/heroImages/3.jpg";
+import img4 from "../assets/heroImages/4.jpg";
+import vd1 from "../assets/heroVideos/1.mp4";
+import vd2 from "../assets/heroVideos/2.mp4";
+import vd3 from "../assets/heroVideos/3.mp4";
+import vd4 from "../assets/heroVideos/4.mp4";
+import vd5 from "../assets/heroVideos/5.mp4";
+import p1 from "../assets/products/1.jpg";
+import p2 from "../assets/products/2.webp";
+import p3 from "../assets/products/3.webp";
+import p4 from "../assets/products/4.webp";
+import p5 from "../assets/products/5.webp";
+import p6 from "../assets/products/6.webp";
+import p7 from "../assets/products/7.jpg";
 
-const videos = [1, 2, 3];
-const products = [1, 2, 3, 4];
+const images = [img1, img2, img3, img4, img1, img2, img3, img4];
+const videos = [vd1, vd2, vd3, vd4, vd5, vd1, vd2, vd3, vd4, vd5];
+const products = [p1, p2, p3, p4, p5, p6, p7, p1, p2, p3, p4, p5, p6, p7];
 const fadeUp = {
-    hidden: { opacity: 0, y: 80 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.8, ease: "easeOut" }
-    }
+  hidden: { opacity: 0, y: 80 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: "easeOut" },
+  },
+};
+const footerData = {
+  Shop: [
+    "HP Fashion Studio",
+    "3rd Floor, Orion Mall",
+    "SG Highway, Ahmedabad",
+    "Gujarat, India – 380054",
+  ],
+
+  Contact: [
+    "Phone: +91 98765 43210",
+    "Email: support@hpfashion.in",
+    "Mon–Sat: 10:00 AM – 7:00 PM",
+  ],
+
+  "Follow Us": [
+    "Instagram: @hpfashion",
+    "Facebook: facebook.com/hpfashion",
+    "Twitter: @hpfashion",
+  ],
 };
 
-
 export default function LandingPage() {
-    return (
-        <div className="min-h-screen bg-neutral-950 text-white ">
-            {/* NAVBAR */}
-            <nav className="flex items-center justify-between px-8 py-6">
-                <h1 className="text-2xl font-extrabold tracking-widest">
-                    HP Fashion
-                </h1>
+  return (
+    <div className="min-h-screen bg-neutral-950 text-white ">
+      <ScrollToTop />
+      {/* NAVBAR */}
+      <nav className="flex items-center justify-between px-8 py-6" id="home">
+        <h1 className="text-2xl font-extrabold tracking-widest">HP Fashion</h1>
 
-                <ul className="hidden md:flex gap-8 text-gray-300 text-sm uppercase">
-                    {["Home", "Collections", "Sale", "Contact"].map((item) => (
-                        <li key={item} className="hover:text-white cursor-pointer">
-                            {item}
-                        </li>
-                    ))}
-                </ul>
+        <ul className="hidden md:flex gap-8 text-gray-300 text-sm uppercase">
+          {["Home", "Collections", "Runway Moments", "products", "Contact"].map(
+            (item) => (
+              <li key={item} className="hover:text-white cursor-pointer">
+                <a href={`#${item.toLowerCase().replace(" ", "_")}`}>{item}</a>
+              </li>
+            ),
+          )}
+        </ul>
 
-                <button
-                    type="button"
-                    className="border border-white px-5 py-2 rounded-full hover:bg-white hover:text-black transition"
-                >
-                    Shop Now
-                </button>
-            </nav>
+        <button
+          type="button"
+          className="border border-white px-5 py-2 rounded-full hover:bg-white hover:text-black transition"
+        >
+          Shop Now
+        </button>
+      </nav>
 
-            {/* HERO */}
-            <motion.header
-                variants={fadeUp}
-                initial="hidden"
-                animate="visible"
-                className="px-6 md:px-16 py-20 min-h-[80vh]"
-            >
-                <div className="mx-auto flex flex-col md:flex-row items-center gap-3 ">
-                    <div className="md:w-2/5 text-center md:text-left ">
-                        <span className="inline-block mb-4 px-4 py-1 rounded-full text-sm tracking-wide bg-white/10 text-gray-300">
-                            Follow the trend with us
-                        </span>
+      {/* HERO */}
+      <motion.header
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        className="px-6 md:px-16 py-20 min-h-[80vh]"
+      >
+        <div className="mx-auto flex flex-col md:flex-row items-center gap-3 ">
+          <div className="md:w-2/5 text-center md:text-left ">
+            <span className="inline-block mb-4 px-4 py-1 rounded-full text-sm tracking-wide bg-white/10 text-gray-300">
+              Follow the trend with us
+            </span>
 
-                        <h2 className="text-4xl md:text-6xl font-extrabold leading-tight">
-                            HP Fashion <br />
-                            <span className="text-gray-300">Creative Clothing</span>
-                        </h2>
+            <h2 className="text-4xl md:text-6xl font-extrabold leading-tight">
+              HP Fashion <br />
+              <span className="text-gray-300">Creative Clothing</span>
+            </h2>
 
-                        <p className="mt-5 text-gray-400 max-w-xl">
-                            Standout pieces crafted with sustainable materials and bold
-                            designs. Limited drops. Timeless style.
-                        </p>
+            <p className="mt-5 text-gray-400 max-w-xl">
+              Standout pieces crafted with sustainable materials and bold
+              designs. Limited drops. Timeless style.
+            </p>
 
-                        <div className="mt-8 flex flex-wrap justify-center md:justify-start gap-4">
-                            <button className="px-7 py-3 bg-white text-black rounded-full font-semibold hover:opacity-90 transition">
-                                Shop New Arrivals
-                            </button>
-                            <a
-                                href="#collections"
-                                className="px-6 py-3 border border-white/20 rounded-full text-sm text-gray-200 hover:bg-white/5 transition"
-                            >
-                                Explore Collections
-                            </a>
-                        </div>
-                    </div>
+            <div className="mt-8 flex flex-wrap justify-center md:justify-start gap-4">
+              <button className="px-7 py-3 bg-white text-black rounded-full font-semibold hover:opacity-90 transition">
+                Shop New Arrivals
+              </button>
+              <a
+                href="#collections"
+                className="px-6 py-3 border border-white/20 rounded-full text-sm text-gray-200 hover:bg-white/5 transition"
+              >
+                Explore Collections
+              </a>
+            </div>
+          </div>
 
-                    <div className="md:w-3/5 flex justify-center md:justify-end">
-                        <div className="w-[1080px] h-[560px] rounded-3xl overflow-hidden shadow-2xl">
-                            <img
-                                src={headerImage}
-                                alt="HP Fashion clothing showcase"
-                                className="w-full h-full object-cover hover:scale-105 transition duration-700"
-                            />
-                        </div>
-                    </div>
-                </div>
-            </motion.header>
-
-            {/* IMAGE CAROUSEL */}
-            <motion.section
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
-                className="px-6 md:px-16"
-            >
-                <h3 className="text-3xl font-bold mb-8">
-                    Collections
-                </h3>
-                <HeroCarousel />
-            </motion.section>
-
-            {/* VIDEO CAROUSEL */}
-            <motion.section
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
-                className="px-6 md:px-16 mt-20"
-            >
-                <h3 className="text-3xl font-bold mb-8">
-                    Runway Moments
-                </h3>
-
-                <div className="flex gap-6 overflow-x-auto pb-4">
-                    {videos.map((item) => (
-                        <div
-                            key={`video-${item}`}
-                            className="min-w-[280px] md:min-w-[360px] h-[240px] rounded-2xl bg-neutral-800 flex items-center justify-center"
-                        >
-                            <span className="text-gray-300">
-                                Video {item}
-                            </span>
-                        </div>
-                    ))}
-                </div>
-            </motion.section>
-
-            {/* PRODUCTS */}
-            <motion.section
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
-                className="px-6 md:px-16 mt-24"
-            >
-                <h3 className="text-3xl font-bold mb-10">
-                    Trending Products
-                </h3>
-
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    {products.map((item) => (
-                        <article
-                            key={`product-${item}`}
-                            className="bg-neutral-900 rounded-2xl p-4 hover:scale-105 transition"
-                        >
-                            <div className="h-56 bg-neutral-800 rounded-xl mb-4" />
-                            <h4 className="font-semibold">
-                                Product {item}
-                            </h4>
-                            <p className="text-gray-400 text-sm">
-                                ₹1,999
-                            </p>
-                        </article>
-                    ))}
-                </div>
-            </motion.section>
-
-            {/* COLLECTIONS & SALE */}
-            {/* <motion.section
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true, amount: 0.25 }}
-                className="px-6 md:px-16 mt-24 grid md:grid-cols-3 gap-8"
-            >
-                <div className="md:col-span-2 h-[300px] rounded-3xl bg-gradient-to-r from-indigo-600 to-purple-600 p-10 flex flex-col justify-end">
-                    <h3 className="text-3xl font-bold">
-                        New Collection 2026
-                    </h3>
-                    <p className="text-gray-200 mt-2">
-                        Bold. Modern. Unapologetic.
-                    </p>
-                </div>
-
-                <div className="h-[300px] rounded-3xl bg-red-600 p-10 flex flex-col justify-end">
-                    <h3 className="text-3xl font-bold">Sale</h3>
-                    <p className="text-gray-200 mt-2">
-                        Up to 50% OFF
-                    </p>
-                </div>
-            </motion.section> */}
-
-            {/* FOOTER */}
-            <motion.footer
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-                className="mt-32 border-t border-white/10 px-6 md:px-16 py-12 grid md:grid-cols-4 gap-8 text-gray-400 text-sm"
-            >
-                <div>
-                    <h4 className="text-white font-bold mb-4">
-                        HP Fashion
-                    </h4>
-                    <p>Modern streetwear for the bold generation.</p>
-                </div>
-
-                {["Shop", "Company", "Follow Us"].map((title) => (
-                    <div key={title}>
-                        <h4 className="text-white font-semibold mb-3">
-                            {title}
-                        </h4>
-                        <ul className="space-y-2">
-                            <li>Item One</li>
-                            <li>Item Two</li>
-                            <li>Item Three</li>
-                        </ul>
-                    </div>
-                ))}
-            </motion.footer>
+          <div className="md:w-3/5 flex justify-center md:justify-end">
+            <div className="w-[1080px] h-[560px] rounded-3xl overflow-hidden shadow-2xl">
+              <img
+                src={headerImage}
+                alt="HP Fashion clothing showcase"
+                className="w-full h-full object-cover hover:scale-105 transition duration-700"
+              />
+            </div>
+          </div>
         </div>
-    );
+      </motion.header>
+
+      {/* IMAGE CAROUSEL */}
+      <motion.section
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        className="px-6 md:px-16"
+        id="collections"
+      >
+        <h3 className="text-3xl font-bold mb-8">Collections</h3>
+        <HeroCarousel images={images} />
+      </motion.section>
+
+      {/* VIDEO CAROUSEL */}
+      <motion.section
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        className="px-6 md:px-16 mt-20"
+        id="runway_moments"
+      >
+        <h3 className="text-3xl font-bold mb-8">Runway Moments</h3>
+        <VideoCarousel videos={videos} />
+      </motion.section>
+
+      {/* PRODUCTS */}
+      <motion.section
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        className="px-6 md:px-16 mt-24"
+        id="products"
+      >
+        <h3 className="text-3xl font-bold mb-10">Trending Products</h3>
+
+        <ProductCarousel products={products} />
+      </motion.section>
+
+      {/* FOOTER */}
+      <motion.footer
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        className="mt-32 border-t border-white/10 px-6 md:px-16 py-12 grid md:grid-cols-4 gap-8 text-gray-400 text-sm"
+        id="contact"
+      >
+        <div>
+          <h4 className="text-white font-bold mb-4">HP Fashion</h4>
+          <p>Modern streetwear for the bold generation.</p>
+        </div>
+
+        {Object.entries(footerData).map(([title, items]) => (
+          <div key={title}>
+            <h4 className="text-white font-semibold mb-3">{title}</h4>
+            <ul className="space-y-2 text-sm">
+              {items.map((item, index) => (
+                <li
+                  key={index}
+                  className="text-gray-400 hover:text-white transition cursor-pointer"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </motion.footer>
+    </div>
+  );
 }

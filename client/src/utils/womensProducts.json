@@ -1,0 +1,36 @@
+{
+  "products": [
+    {
+      "id": "w1",
+      "title": "Floral Summer Dress",
+      "category": "Women",
+      "subCategory": "Dresses",
+      "status": "Available",
+      "image": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRvNCmSyWd50vfP4E2gVf6BHMYa4zPXW4qISrrrs-pOejkHUrBwh31jByr5mG_z8wFnAC8dZSL6ih1QVZcxSzfYWNLTInQ1a3FTiN3UPQG5"
+    },
+    {
+      "id": "w2",
+      "title": "Casual Cotton Top",
+      "category": "Women",
+      "subCategory": "Tops",
+      "status": "Available",
+      "image": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcT1SzVrIL92Lj5phmGASx_P3RAmTbgcAElUZwxMjpQmUV1r2vh6wVUpMXcNP3McUiNnXRSqO9H6T7FqOwidoMTbzSFiHjhd"
+    },
+    {
+      "id": "w3",
+      "title": "High Waist Jeans",
+      "category": "Women",
+      "subCategory": "Jeans",
+      "status": "Out of Stock",
+      "image": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTbDkmkKdrrAT6RtOv8ru4Cglob8ouO7MdwS7tgKViFlXR3quOeqpuwnCj3kZSIQaoKK2cKcWFmm4EfeLoDlCWbZaioqs-YHNUbfEtqxQnc"
+    },
+    {
+      "id": "w4",
+      "title": "Elegant Kurti",
+      "category": "Women",
+      "subCategory": "Ethnic Wear",
+      "status": "Available",
+      "image": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQQ9pabaLuKbDS4Uj23G071VeV637TLLo_uxNNN6B7fKC7mVFcjm4-ktN8js3CdNTQFEv2usQ4na7sdjB-CwsJi19d0Vm_yuYy_9uC5EQXe5XdW7j-DbBJl"
+    }
+  ]
+}

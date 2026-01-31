@@ -2,7 +2,7 @@ function Categories() {
   const categories = ["Men", "Women", "Kids", "Accessories"];
 
   return (
-    <section className="px-6 md:px-16 py-14">
+    <section className="px-6 md:px-16 py-8">
       <h2 className="text-2xl font-semibold mb-6">Shop by Category</h2>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">

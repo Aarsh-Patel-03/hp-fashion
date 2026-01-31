@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useCallback } from "react";
 
 export default function HeroCarousel({ images = [] }) {
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
 
   const n = images.length;
+  const next = useCallback(() => {
+    setCurrent((prev) => (prev + 1) % n);
+  }, [n]);
 
-  const next = () => setCurrent((c) => (c + 1) % n);
-  const prev = () => setCurrent((c) => (c - 1 + n) % n);
+  const prev = useCallback(() => {
+    setCurrent((prev) => (prev - 1 + n) % n);
+  }, [n]);
 
   // Auto-play
   useEffect(() => {

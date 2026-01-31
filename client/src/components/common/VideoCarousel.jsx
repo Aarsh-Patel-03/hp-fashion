@@ -11,7 +11,7 @@ export default function VideoCarousel({ videos = [] }) {
   const n = videos.length;
 
   const next = () => setCurrent((c) => (c + 1) % n);
-  const prev = () => setCurrent((c) => (c - 1 + n) % n);
+  // const prev = () => setCurrent((c) => (c - 1 + n) % n);
 
   // ---------- Progress Bar ----------
   const startProgress = (video) => {

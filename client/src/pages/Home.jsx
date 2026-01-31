@@ -1,12 +1,19 @@
 import React from 'react';
+import Navbar from '../components/common/Navbar.jsx';
+import HeroSection from '../components/common/HeroSection.jsx';
+import Categories from '../components/common/Categories.jsx';
+import ProductSection from '../components/common/ProductSection.jsx';
+import Footer from '../components/common/Footer.jsx';
 
-const Home = () => {
+export default function Home() {
   return (
-    <div className="home-container">
-      <h1>Welcome Home</h1>
-      <p>This is the home page of your application.</p>
+    <div className="bg-neutral-950 text-white">
+      <Navbar visible={false} />
+      <HeroSection />
+      <Categories />
+      <ProductSection title="Men Collection" />
+      <ProductSection title="Women Collection" />
+      <Footer />
     </div>
   );
-};
-
-export default Home;
+}

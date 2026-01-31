@@ -3,6 +3,7 @@ import HeroCarousel from "../components/common/HeroCarousel.jsx";
 import VideoCarousel from "../components/common/VideoCarousel.jsx";
 import ProductCarousel from "../components/common/ProductCarousel.jsx";
 import ScrollToTop from "../components/common/ScrollToTop.jsx";
+import Navbar from "../components/common/Navbar.jsx";
 import headerImage from "../assets/header.avif";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -22,6 +23,7 @@ import p4 from "../assets/products/4.webp";
 import p5 from "../assets/products/5.webp";
 import p6 from "../assets/products/6.webp";
 import p7 from "../assets/products/7.jpg";
+import Footer from "../components/common/Footer.jsx";
 
 const images = [img1, img2, img3, img4, img1, img2, img3, img4];
 const videos = [vd1, vd2, vd3, vd4, vd5, vd1, vd2, vd3, vd4, vd5];
@@ -34,27 +36,6 @@ const fadeUp = {
     transition: { duration: 0.8, ease: "easeOut" },
   },
 };
-const footerData = {
-  Shop: [
-    "HP Fashion Studio",
-    "3rd Floor, Orion Mall",
-    "SG Highway, Ahmedabad",
-    "Gujarat, India – 380054",
-  ],
-
-  Contact: [
-    "Phone: +91 98765 43210",
-    "Email: support@hpfashion.in",
-    "Mon–Sat: 10:00 AM – 7:00 PM",
-  ],
-
-  "Follow Us": [
-    "Instagram: @hpfashion",
-    "Facebook: facebook.com/hpfashion",
-    "Twitter: @hpfashion",
-  ],
-};
-
 export default function LandingPage() {
 
   const navigate = useNavigate();
@@ -62,29 +43,8 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-neutral-950 text-white ">
       <ScrollToTop />
-      {/* NAVBAR */}
-      <nav className="flex items-center justify-between px-8 py-6" id="home">
-        <h1 className="text-2xl font-extrabold tracking-widest">HP Fashion</h1>
-
-        <ul className="hidden md:flex gap-8 text-gray-300 text-sm uppercase">
-          {["Home", "Collections", "Runway Moments", "products", "Contact"].map(
-            (item) => (
-              <li key={item} className="hover:text-white cursor-pointer">
-                <a href={`#${item.toLowerCase().replace(" ", "_")}`}>{item}</a>
-              </li>
-            ),
-          )}
-        </ul>
-
-        <button
-          type="button"
-          className="border border-white px-5 py-2 rounded-full hover:bg-white hover:text-black transition"
-          onClick={() => navigate('/home')}
-        >
-          Shop Now
-        </button>
-      </nav>
-
+      
+      <Navbar />
       {/* HERO */}
       <motion.header
   variants={fadeUp}
@@ -197,29 +157,9 @@ export default function LandingPage() {
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="mt-32 border-t border-white/10 px-6 md:px-16 py-12 grid md:grid-cols-4 gap-8 text-gray-400 text-sm"
         id="contact"
       >
-        <div>
-          <h4 className="text-white font-bold mb-4">HP Fashion</h4>
-          <p>Modern streetwear for the bold generation.</p>
-        </div>
-
-        {Object.entries(footerData).map(([title, items]) => (
-          <div key={title}>
-            <h4 className="text-white font-semibold mb-3">{title}</h4>
-            <ul className="space-y-2 text-sm">
-              {items.map((item, index) => (
-                <li
-                  key={index}
-                  className="text-gray-400 hover:text-white transition cursor-pointer"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+       <Footer /> 
       </motion.footer>
     </div>
   );

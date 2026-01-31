@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
-export default function Navbar({visible=true}) {
+import { IoArrowBack } from "react-icons/io5";
+export default function Navbar({visible=true,backBtn=false}) {
     const navigate = useNavigate();
   return (
       <nav className={`flex items-center justify-between px-8 py-6`} id="home">
@@ -21,6 +22,10 @@ export default function Navbar({visible=true}) {
         >
           Shop Now
         </button>}
+        {backBtn && <button className="flex items-center gap-2 text-sm text-gray-300 hover:text-white" onClick={() => navigate(-1)}>
+            <IoArrowBack />
+            Back
+          </button>}
         
       </nav>
   );

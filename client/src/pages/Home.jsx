@@ -9,7 +9,7 @@ import womensProducts  from '../utils/womensProducts.json';
 export default function Home() {
   return (
     <div className="bg-neutral-950 text-white">
-      <Navbar visible={false} />
+      <Navbar visible={false} backBtn={true} />
       <HeroSection />
       <Categories />
       <ProductSection title="Men Collection" products={mensProducts} />

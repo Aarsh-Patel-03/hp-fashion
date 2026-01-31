@@ -6,7 +6,9 @@
       "category": "Men",
       "subCategory": "T-Shirts",
       "status": "Available",
-      "image": "https://image.hm.com/assets/hm/0f/6b/0f6bc077b11def2e185df6254e0017b71afc812f.jpg"
+      "image": "https://image.hm.com/assets/hm/0f/6b/0f6bc077b11def2e185df6254e0017b71afc812f.jpg",
+      "price": 999.0,
+      "stock": true
     },
     {
       "id": "m2",
@@ -14,7 +16,8 @@
       "category": "Men",
       "subCategory": "Shirts",
       "status": "Available",
-      "image": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQj0KUl8KvSuTYwYC86pbWA5QgCf7MfQk6JP9X1uzqMlpZ0bshkCa2YzKWqzrRtOORa4aSV1IK1eeOQSyyafMXKuxPb11ZDo2KUF4Vsi3BmAhrwyPZ2zhaM"
+      "image": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQj0KUl8KvSuTYwYC86pbWA5QgCf7MfQk6JP9X1uzqMlpZ0bshkCa2YzKWqzrRtOORa4aSV1IK1eeOQSyyafMXKuxPb11ZDo2KUF4Vsi3BmAhrwyPZ2zhaM",
+      "price": 1499.0
     },
     {
       "id": "m3",
@@ -22,7 +25,9 @@
       "category": "Men",
       "subCategory": "Jeans",
       "status": "Out of Stock",
-      "image": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSl0iio2F26LyWP81qqkQDmCmpZ1uc4UigwIaO9W7A1r6GHJ_3tzjYAHLQvh02qcHJFSW10NPWvyxJPQ5tzk6zGMdyb2W90HBeNnoMYob4"
+      "image": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSl0iio2F26LyWP81qqkQDmCmpZ1uc4UigwIaO9W7A1r6GHJ_3tzjYAHLQvh02qcHJFSW10NPWvyxJPQ5tzk6zGMdyb2W90HBeNnoMYob4",
+      "price": 999.0,
+      "stock": true
     },
     {
       "id": "m4",
@@ -30,7 +35,8 @@
       "category": "Men",
       "subCategory": "Hoodies",
       "status": "Available",
-      "image": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQaujD1Bwy9yugS0Dt2HZ9BKFEHyrAjqCQe5dgGzUHl960aHHbE34nIp8p5JU8mi5RHCxxlqF4fVwT3QsZkeLBirVchwyJJ"
+      "image": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQaujD1Bwy9yugS0Dt2HZ9BKFEHyrAjqCQe5dgGzUHl960aHHbE34nIp8p5JU8mi5RHCxxlqF4fVwT3QsZkeLBirVchwyJJ",
+      "price": 1999.0
     }
   ]
 }

@@ -15,7 +15,6 @@ import vd1 from "../assets/heroVideos/1.mp4";
 import vd2 from "../assets/heroVideos/2.mp4";
 import vd3 from "../assets/heroVideos/3.mp4";
 import vd4 from "../assets/heroVideos/4.mp4";
-import vd5 from "../assets/heroVideos/5.mp4";
 import p1 from "../assets/products/1.jpg";
 import p2 from "../assets/products/2.webp";
 import p3 from "../assets/products/3.webp";
@@ -26,7 +25,7 @@ import p7 from "../assets/products/7.jpg";
 import Footer from "../components/common/Footer.jsx";
 
 const images = [img1, img2, img3, img4, img1, img2, img3, img4];
-const videos = [vd1, vd2, vd3, vd4, vd5, vd1, vd2, vd3, vd4, vd5];
+const videos = [vd1, vd2, vd3, vd4, vd1, vd2, vd3, vd4];
 const products = [p1, p2, p3, p4, p5, p6, p7, p1, p2, p3, p4, p5, p6, p7];
 const fadeUp = {
   hidden: { opacity: 0, y: 80 },

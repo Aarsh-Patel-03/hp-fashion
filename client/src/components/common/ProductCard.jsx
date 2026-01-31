@@ -1,10 +1,11 @@
 
-export default function ProductCard({product}) {
+export default function ProductCard({product,setSelectedProduct}) {
 
   return (
     <div
-            key={product}
-            className="bg-neutral-900 rounded-xl overflow-hidden"
+            key={product.id}
+            className="bg-neutral-900 rounded-xl overflow-hidden cursor-pointer"
+            onClick={() => setSelectedProduct(product)}
           >
             <img
               src={product.image}

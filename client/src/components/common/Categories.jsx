@@ -7,12 +7,17 @@ function Categories() {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {categories.map((cat) => (
-          <div
-            key={cat}
-            className="h-32 bg-neutral-900 flex items-center justify-center rounded-xl cursor-pointer hover:bg-neutral-800 transition"
+          <a
+            href={`#${cat.toLowerCase() + "_collection"}`}
+            className="text-lg font-medium"
           >
-            <span className="text-lg font-medium">{cat}</span>
-          </div>
+            <div
+              key={cat}
+              className="h-32 bg-neutral-900 flex items-center justify-center rounded-xl cursor-pointer hover:bg-neutral-800 transition"
+            >
+              <span className="text-lg font-medium">{cat}</span>
+            </div>
+          </a>
         ))}
       </div>
     </section>

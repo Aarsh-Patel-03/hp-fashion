@@ -3,7 +3,7 @@ import { IoArrowBack } from "react-icons/io5";
 export default function Navbar({visible=true,backBtn=false}) {
     const navigate = useNavigate();
   return (
-      <nav className={`flex items-center justify-between px-8 py-6`} id="home">
+      <nav className={`flex items-center justify-between px-8 py-6 sticky top-0 z-50 bg-black`} id="home">
         <h1 className="text-2xl font-extrabold tracking-widest">HP Fashion</h1>
 
         <ul className="hidden md:flex gap-8 text-gray-300 text-sm uppercase">

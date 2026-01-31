@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LandingPage from './pages/LandingPage.jsx';
-import Home from './pages/Home.jsx';
-import AllProductsPage from './pages/AllProductsPage.jsx';
+import LandingPage from "./pages/LandingPage.jsx";
+import Home from "./pages/Home.jsx";
+import AllProductsPage from "./pages/AllProductsPage.jsx";
 
 export default function App() {
   return (
@@ -13,5 +13,5 @@ export default function App() {
         <Route path="/all-products" element={<AllProductsPage />} />
       </Routes>
     </BrowserRouter>
-  )
+  );
 }

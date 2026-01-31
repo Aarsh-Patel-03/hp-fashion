@@ -6,9 +6,11 @@ import ProductSection from '../components/common/ProductSection.jsx';
 import Footer from '../components/common/Footer.jsx';
 import mensProducts from '../utils/mensProducts.json';
 import womensProducts  from '../utils/womensProducts.json';
+import ScrollToTop from '../components/common/ScrollToTop.jsx';
 export default function Home() {
   return (
     <div className="bg-neutral-950 text-white">
+      <ScrollToTop />
       <Navbar visible={false} backBtn={true} />
       <HeroSection />
       <Categories />

@@ -20,7 +20,7 @@ export default function Footer() {
     ],
   };
   return (
-    <div className="mt-32 border-t border-white/10 px-6 md:px-16 py-12 grid md:grid-cols-4 gap-8 text-gray-400 text-sm">
+    <div className="mt-16 border-t border-white/10 px-6 md:px-16 py-12 grid md:grid-cols-4 gap-8 text-gray-400 text-sm">
       <div>
         <h4 className="text-white font-bold mb-4">HP Fashion</h4>
         <p>Modern streetwear for the bold generation.</p>

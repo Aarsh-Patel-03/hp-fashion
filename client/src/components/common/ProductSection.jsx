@@ -6,7 +6,7 @@ function ProductSection({ title,products=[],allProducts=false }) {
     const navigate = useNavigate();
     const [selectedProduct, setSelectedProduct] = useState(null);
   return (
-    <section className="px-6 md:px-16 py-6">
+    <section className="px-6 md:px-16 py-6" id={title ? title.toLowerCase().replace(" ", "_") : ""}>
         {selectedProduct && <ProductModal product={selectedProduct} onClose={() => setSelectedProduct(null)} />}
       {title && <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-semibold">{title}</h2>

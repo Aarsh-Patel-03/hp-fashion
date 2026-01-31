@@ -4,6 +4,7 @@ import VideoCarousel from "../components/common/VideoCarousel.jsx";
 import ProductCarousel from "../components/common/ProductCarousel.jsx";
 import ScrollToTop from "../components/common/ScrollToTop.jsx";
 import headerImage from "../assets/header.avif";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import img1 from "../assets/heroImages/1.avif";
 import img2 from "../assets/heroImages/2.webp";
@@ -55,6 +56,9 @@ const footerData = {
 };
 
 export default function LandingPage() {
+
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-neutral-950 text-white ">
       <ScrollToTop />
@@ -75,6 +79,7 @@ export default function LandingPage() {
         <button
           type="button"
           className="border border-white px-5 py-2 rounded-full hover:bg-white hover:text-black transition"
+          onClick={() => navigate('/home')}
         >
           Shop Now
         </button>
@@ -82,51 +87,69 @@ export default function LandingPage() {
 
       {/* HERO */}
       <motion.header
-        variants={fadeUp}
-        initial="hidden"
-        animate="visible"
-        className="px-6 md:px-16 py-20 min-h-[80vh]"
-      >
-        <div className="mx-auto flex flex-col md:flex-row items-center gap-3 ">
-          <div className="md:w-2/5 text-center md:text-left ">
-            <span className="inline-block mb-4 px-4 py-1 rounded-full text-sm tracking-wide bg-white/10 text-gray-300">
-              Follow the trend with us
-            </span>
+  variants={fadeUp}
+  initial="hidden"
+  animate="visible"
+  className="relative px-6 md:px-16 py-20 min-h-[80vh] overflow-hidden"
+>
+  {/* MOBILE BACKGROUND IMAGE */}
+  <div className="absolute inset-0 md:hidden">
+    <img
+      src={headerImage}
+      alt="HP Fashion clothing showcase"
+      className="w-full h-full object-cover"
+    />
+    {/* Overlay */}
+    <div className="absolute inset-0 bg-black/60" />
+  </div>
 
-            <h2 className="text-4xl md:text-6xl font-extrabold leading-tight">
-              HP Fashion <br />
-              <span className="text-gray-300">Creative Clothing</span>
-            </h2>
+  <div className="relative mx-auto flex flex-col md:flex-row items-center gap-8">
+    {/* TEXT SECTION */}
+    <div className="md:w-2/5 text-center md:text-left text-white">
+      <span className="inline-block mb-4 px-4 py-1 rounded-full text-sm tracking-wide bg-white/10 text-gray-200">
+        Follow the trend with us
+      </span>
 
-            <p className="mt-5 text-gray-400 max-w-xl">
-              Standout pieces crafted with sustainable materials and bold
-              designs. Limited drops. Timeless style.
-            </p>
+      <h2 className="text-4xl md:text-6xl font-extrabold leading-tight">
+        HP Fashion <br />
+        <span className="text-gray-300">Creative Clothing</span>
+      </h2>
 
-            <div className="mt-8 flex flex-wrap justify-center md:justify-start gap-4">
-              <button className="px-7 py-3 bg-white text-black rounded-full font-semibold hover:opacity-90 transition">
-                Shop New Arrivals
-              </button>
-              <a
-                href="#collections"
-                className="px-6 py-3 border border-white/20 rounded-full text-sm text-gray-200 hover:bg-white/5 transition"
-              >
-                Explore Collections
-              </a>
-            </div>
-          </div>
+      <p className="mt-5 text-gray-300 max-w-xl mx-auto md:mx-0">
+        Standout pieces crafted with sustainable materials and bold designs.
+        Limited drops. Timeless style.
+      </p>
 
-          <div className="md:w-3/5 flex justify-center md:justify-end">
-            <div className="w-[1080px] h-[560px] rounded-3xl overflow-hidden shadow-2xl">
-              <img
-                src={headerImage}
-                alt="HP Fashion clothing showcase"
-                className="w-full h-full object-cover hover:scale-105 transition duration-700"
-              />
-            </div>
-          </div>
-        </div>
-      </motion.header>
+      <div className="mt-8 flex flex-wrap justify-center md:justify-start gap-4">
+        <button
+          className="px-7 py-3 bg-white text-black rounded-full font-semibold hover:opacity-90 transition"
+          onClick={() => navigate("/home")}
+        >
+          Shop New Arrivals
+        </button>
+
+        <a
+          href="#collections"
+          className="px-6 py-3 border border-white/30 rounded-full text-sm text-gray-200 hover:bg-white/10 transition"
+        >
+          Explore Collections
+        </a>
+      </div>
+    </div>
+
+    {/* DESKTOP IMAGE */}
+    <div className="hidden md:flex md:w-3/5 justify-end">
+      <div className="w-full h-[560px] rounded-3xl overflow-hidden shadow-2xl">
+        <img
+          src={headerImage}
+          alt="HP Fashion clothing showcase"
+          className="w-full h-full object-cover hover:scale-105 transition duration-700"
+        />
+      </div>
+    </div>
+  </div>
+</motion.header>
+
 
       {/* IMAGE CAROUSEL */}
       <motion.section
@@ -137,7 +160,7 @@ export default function LandingPage() {
         className="px-6 md:px-16"
         id="collections"
       >
-        <h3 className="text-3xl font-bold mb-8">Collections</h3>
+        <h3 className="text-3xl font-bold mb-8 pt-10">Collections</h3>
         <HeroCarousel images={images} />
       </motion.section>
 
@@ -150,7 +173,7 @@ export default function LandingPage() {
         className="px-6 md:px-16 mt-20"
         id="runway_moments"
       >
-        <h3 className="text-3xl font-bold mb-8">Runway Moments</h3>
+        <h3 className="text-3xl font-bold mb-8 pt-10">Runway Moments</h3>
         <VideoCarousel videos={videos} />
       </motion.section>
 

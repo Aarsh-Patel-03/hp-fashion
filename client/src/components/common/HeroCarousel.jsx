@@ -1,136 +1,113 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation, EffectCoverflow } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import "swiper/css/effect-coverflow";
+import React, { useEffect, useState } from "react";
 
-export default function HeroCarousel({ images }) {
-    return (
-        <div className="w-full relative px-4 md:px-8 lg:px-12">
-            <Swiper
-                modules={[Autoplay, Pagination, Navigation, EffectCoverflow]}
-                effect="coverflow"
-                grabCursor={true}
-                centeredSlides={true}
-                slidesPerView={"auto"}
-                loop={true}
-                coverflowEffect={{
-                    rotate: 0,
-                    stretch: 0,
-                    depth: 200,
-                    modifier: 1,
-                    slideShadows: false,
-                }}
-                autoplay={{
-                    delay: 3500,
-                    disableOnInteraction: false,
-                    pauseOnMouseEnter: true,
-                }}
-                pagination={{
-                    clickable: true,
-                    dynamicBullets: true,
-                }}
-                navigation={true}
-                breakpoints={{
-                    320: {
-                        slidesPerView: 1,
-                        spaceBetween: 10,
-                    },
-                    640: {
-                        slidesPerView: 3,
-                        spaceBetween: 15,
-                    },
-                    1024: {
-                        slidesPerView: 5,
-                        spaceBetween: 20,
-                    },
-                }}
-                className="heroSwiper !pb-14 !pt-4"
+export default function HeroCarousel({ images = [] }) {
+  const [current, setCurrent] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  const n = images.length;
+
+  const next = () => setCurrent((c) => (c + 1) % n);
+  const prev = () => setCurrent((c) => (c - 1 + n) % n);
+
+  // Auto-play
+  useEffect(() => {
+    if (paused || n === 0) return;
+    const id = setInterval(next, 2000);
+    return () => clearInterval(id);
+  }, [paused, n]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "ArrowRight") next();
+      if (e.key === "ArrowLeft") prev();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  // Relative position
+  const rel = (i) => {
+    let diff = i - current;
+    if (diff > n / 2) diff -= n;
+    if (diff < -n / 2) diff += n;
+    return diff;
+  };
+
+  // Slot styles - now responsive
+  const slotClasses = (diff) => {
+    const base =
+      "absolute top-0 left-1/2 w-[280px] h-[420px] sm:w-[320px] sm:h-[480px] md:w-[360px] md:h-[540px] lg:w-[400px] lg:h-[600px] " +
+      "-ml-[140px] sm:-ml-[160px] md:-ml-[180px] lg:-ml-[200px] " +
+      "rounded-xl shadow-xl overflow-hidden select-none " +
+      "transition-transform duration-500 ease-out transform-gpu";
+
+    switch (diff) {
+      case -3:
+        return `${base} z-[5] scale-50 -translate-x-[400px] sm:-translate-x-[288px] md:-translate-x-[324px] lg:-translate-x-[450px] opacity-80`;
+      case -2:
+        return `${base} z-[10] scale-75 -translate-x-[300px] sm:-translate-x-[192px] md:-translate-x-[216px] lg:-translate-x-[300px] opacity-90`;
+      case -1:
+        return `${base} z-[20] scale-90 -translate-x-[100px] sm:-translate-x-[96px] md:-translate-x-[108px] lg:-translate-x-[150px] opacity-95`;
+      case 0:
+        return `${base} z-[30] scale-100`;
+      case 1:
+        return `${base} z-[20] scale-90 translate-x-[100px] sm:translate-x-[96px] md:translate-x-[108px] lg:translate-x-[150px] opacity-95`;
+      case 2:
+        return `${base} z-[10] scale-75 translate-x-[300px] sm:translate-x-[192px] md:translate-x-[216px] lg:translate-x-[300px] opacity-90`;
+      case 3:
+        return `${base} z-[5] scale-50 translate-x-[400px] sm:translate-x-[288px] md:translate-x-[324px] lg:translate-x-[450px] opacity-80`;
+      default:
+        return `${base} opacity-0 pointer-events-none`;
+    }
+  };
+
+  if (n === 0) return null;
+
+  return (
+    <div className="w-full  flex items-center px-4 overflow-x-hidden">
+      <div
+        className="relative mx-auto h-[420px] sm:h-[480px] md:h-[540px] lg:h-[600px] w-full max-w-[1800px]"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+        aria-roledescription="carousel"
+      >
+        {/* Slides */}
+        {images.map((src, i) => {
+          const diff = rel(i);
+          return (
+            <div
+              key={i}
+              className={`${slotClasses(diff)} cursor-pointer`}
+              aria-hidden={Math.abs(diff) > 3}
+              onClick={() => setCurrent(i)}
             >
-                {images.map((img, index) => (
-                    <SwiperSlide key={index} className="!w-auto max-w-[400px]">
-                        {({ isActive, isPrev, isNext }) => {
-                            // Calculate z-index based on position
-                            let zIndex = 10;
-                            if (isActive) zIndex = 50;
-                            else if (isPrev || isNext) zIndex = 40;
-                            
-                            return (
-                                <div
-                                    className={`relative transition-all duration-500 rounded-2xl overflow-hidden shadow-2xl group
-                                        ${isActive 
-                                            ? "scale-100 opacity-100" 
-                                            : isPrev || isNext
-                                            ? "scale-100 opacity-100"
-                                            : "scale-100 opacity-100"
-                                        }
-                                    `}
-                                    style={{
-                                        zIndex: zIndex,
-                                    }}
-                                >
-                                    <img
-                                        src={img}
-                                        alt={`Fashion collection ${index + 1}`}
-                                        className="w-full h-[560px] object-cover transition-transform duration-700 group-hover:scale-105"
-                                        loading={index < 3 ? "eager" : "lazy"}
-                                    />
-                                    {/* Overlay on hover */}
-                                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
-                                </div>
-                            );
-                        }}
-                    </SwiperSlide>
-                ))}
-            </Swiper>
+              <img
+                src={src}
+                alt={`Slide ${i + 1}`}
+                className="w-full h-full object-cover"
+                draggable={false}
+              />
+            </div>
+          );
+        })}
 
-            <style jsx global>{`
-                .heroSwiper .swiper-slide {
-                    transition: all 0.5s ease;
-                }
-                
-                .heroSwiper .swiper-slide-active {
-                    z-index: 50 !important;
-                }
-                
-                .heroSwiper .swiper-slide-prev,
-                .heroSwiper .swiper-slide-next {
-                    z-index: 40 !important;
-                }
-                
-                .heroSwiper .swiper-slide-prev ~ .swiper-slide:not(.swiper-slide-active):not(.swiper-slide-prev):not(.swiper-slide-next),
-                .heroSwiper .swiper-slide-next ~ .swiper-slide:not(.swiper-slide-active):not(.swiper-slide-prev):not(.swiper-slide-next) {
-                    z-index: 30 !important;
-                }
-                
-                .heroSwiper .swiper-slide:not(.swiper-slide-active):not(.swiper-slide-prev):not(.swiper-slide-next) {
-                    z-index: 20 !important;
-                }
-
-                .heroSwiper .swiper-button-next,
-                .heroSwiper .swiper-button-prev {
-                    color: #fff;
-                    background: rgba(0, 0, 0, 0.5);
-                    width: 44px;
-                    height: 44px;
-                    border-radius: 50%;
-                    transition: all 0.3s ease;
-                    z-index: 60;
-                }
-
-                .heroSwiper .swiper-button-next:hover,
-                .heroSwiper .swiper-button-prev:hover {
-                    background: rgba(0, 0, 0, 0.8);
-                    transform: scale(1.1);
-                }
-
-                .heroSwiper .swiper-button-next::after,
-                .heroSwiper .swiper-button-prev::after {
-                    font-size: 20px;
-                }
-
-            `}</style>
+        {/* Dots */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-[40] flex gap-2">
+          {images.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              aria-label={`Go to slide ${i + 1}`}
+              className={`h-2 rounded-full transition-all ${
+                i === current
+                  ? "w-6 bg-white"
+                  : "w-2 bg-white/50 hover:bg-white/70"
+              }`}
+            />
+          ))}
         </div>
-    );
+      </div>
+    </div>
+  );
 }

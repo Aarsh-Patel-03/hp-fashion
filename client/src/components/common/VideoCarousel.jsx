@@ -1,14 +1,19 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-export default function VideoCarousel({ videos }) {
-  const swiperRef = useRef(null);
+export default function VideoCarousel({ videos = [] }) {
+  const [current, setCurrent] = useState(0);
+  const [paused, setPaused] = useState(false);
+
   const videoRefs = useRef([]);
   const progressRef = useRef(null);
   const rafRef = useRef(null);
-  const initialized = useRef(false);
 
+  const n = videos.length;
+
+  const next = () => setCurrent((c) => (c + 1) % n);
+  const prev = () => setCurrent((c) => (c - 1 + n) % n);
+
+  // ---------- Progress Bar ----------
   const startProgress = (video) => {
     cancelAnimationFrame(rafRef.current);
 
@@ -33,82 +38,107 @@ export default function VideoCarousel({ videos }) {
     }
   };
 
-  const playActiveVideo = (swiper) => {
-    const video = videoRefs.current[swiper.realIndex];
-    if (!video) return;
-
-    setTimeout(() => {
-      video.currentTime = 0;
-      video.play().catch(() => {});
-      startProgress(video);
-    }, 50);
+  // ---------- Relative position (same as image carousel) ----------
+  const rel = (i) => {
+    let diff = i - current;
+    if (diff > n / 2) diff -= n;
+    if (diff < -n / 2) diff += n;
+    return diff;
   };
 
-  const handleSlideChange = (swiper) => {
+  // ---------- Play only center video ----------
+  useEffect(() => {
     stopProgress();
 
-    videoRefs.current.forEach((v) => {
-      if (v && !v.paused) v.pause();
-    });
+    videoRefs.current.forEach((video, i) => {
+      if (!video) return;
 
-    playActiveVideo(swiper);
+      if (i === current && !paused) {
+        video.currentTime = 0;
+        video.play().catch(() => {});
+        startProgress(video);
+      } else {
+        video.pause();
+      }
+    });
+  }, [current, paused]);
+
+  // ---------- Auto next when video ends ----------
+  const handleEnded = () => {
+    next();
   };
 
-  return (
-    <div className="w-full">
-      <Swiper
-        slidesPerView={3}
-        centeredSlides
-        loop
-        spaceBetween={-50}
-        onSwiper={(swiper) => {
-          swiperRef.current = swiper;
-          if (!initialized.current) {
-            initialized.current = true;
-            playActiveVideo(swiper);
-          }
-        }}
-        onSlideChange={handleSlideChange}
-        className="heroSwiper"
-      >
-        {videos.map((src, index) => (
-          <SwiperSlide key={index}>
-            {({ isActive }) => (
-              <div
-                className={`relative rounded-2xl overflow-hidden shadow-2xl transition-all duration-500
-                ${isActive ? "scale-100 opacity-100" : "scale-90 opacity-40"}
-              `}
-              >
-                {/* Video */}
-                <video
-                  ref={(el) => (videoRefs.current[index] = el)}
-                  src={src}
-                  muted
-                  playsInline
-                  preload="metadata"
-                  className="w-full h-[560px] object-cover"
-                  onEnded={() => {
-                    if (isActive && swiperRef.current) {
-                      handleSlideChange(swiperRef.current);
-                      swiperRef.current.slideNext();
-                    }
-                  }}
-                />
+  // ---------- SAME STACK STYLES AS IMAGE ----------
+  const slotClasses = (diff) => {
+    const base =
+      "absolute top-0 left-1/2 w-[280px] h-[420px] sm:w-[320px] sm:h-[480px] md:w-[360px] md:h-[540px] lg:w-[400px] lg:h-[600px] " +
+      "-ml-[140px] sm:-ml-[160px] md:-ml-[180px] lg:-ml-[200px] " +
+      "rounded-2xl shadow-2xl overflow-hidden select-none " +
+      "transition-transform duration-500 ease-out transform-gpu";
 
-                {/* Smooth Progress Bar (bottom) */}
-                {isActive && (
-                  <div className="absolute bottom-0 left-0 w-full h-[4px] bg-white/30">
-                    <div
-                      ref={progressRef}
-                      className="h-full bg-white origin-left transform scale-x-0"
-                    />
-                  </div>
-                )}
-              </div>
-            )}
-          </SwiperSlide>
-        ))}
-      </Swiper>
+    switch (diff) {
+      case -3:
+        return `${base} z-[5] scale-50 -translate-x-[450px] `;
+      case -2:
+        return `${base} z-[10] scale-75 -translate-x-[300px] `;
+      case -1:
+        return `${base} z-[20] scale-90 -translate-x-[150px] `;
+      case 0:
+        return `${base} z-[30] scale-100`;
+      case 1:
+        return `${base} z-[20] scale-90 translate-x-[150px] `;
+      case 2:
+        return `${base} z-[10] scale-75 translate-x-[300px] `;
+      case 3:
+        return `${base} z-[5] scale-50 translate-x-[450px] `;
+      default:
+        return `${base} opacity-0 pointer-events-none`;
+    }
+  };
+
+  if (n === 0) return null;
+
+  return (
+    <div className="w-full flex items-center px-4 overflow-x-hidden">
+      <div
+        className="relative mx-auto h-[420px] sm:h-[480px] md:h-[540px] lg:h-[600px] w-full max-w-[1800px]"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
+        {videos.map((src, i) => {
+          const diff = rel(i);
+          const isActive = diff === 0;
+
+          return (
+            <div
+              key={i}
+              className={`${slotClasses(diff)} cursor-pointer`}
+              onClick={() => setCurrent(i)}
+            >
+              {/* Video */}
+              <video
+                ref={(el) => (videoRefs.current[i] = el)}
+                src={src}
+                muted
+                playsInline
+                preload="metadata"
+                className="w-full h-full object-cover"
+                onEnded={handleEnded}
+              />
+
+              {/* Progress bar (ACTIVE ONLY) */}
+              {isActive && (
+                <div className="absolute bottom-0 left-0 w-full h-[4px] bg-white/30">
+                  <div
+                    ref={progressRef}
+                    className="h-full bg-white origin-left transform scale-x-0"
+                  />
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

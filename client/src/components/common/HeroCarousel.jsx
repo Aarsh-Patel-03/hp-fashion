@@ -18,7 +18,7 @@ export default function HeroCarousel({ images = [] }) {
     if (paused || n === 0) return;
     const id = setInterval(next, 2000);
     return () => clearInterval(id);
-  }, [paused, n]);
+  }, [paused, n,next]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function HeroCarousel({ images = [] }) {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [next, prev]);
 
   // Relative position
   const rel = (i) => {

@@ -157,23 +157,23 @@ export default function LandingPage() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
-        className="px-6 md:px-16"
+        className="md:px-16"
         id="collections"
       >
-        <h3 className="text-3xl font-bold mb-8 pt-10">Collections</h3>
+        <h3 className="text-3xl font-bold mb-8 pt-10 px-6">Collections</h3>
         <HeroCarousel images={images} />
       </motion.section>
-
+ 
       {/* VIDEO CAROUSEL */}
       <motion.section
         variants={fadeUp}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
-        className="px-6 md:px-16 mt-20"
+        className="md:px-16 mt-20"
         id="runway_moments"
       >
-        <h3 className="text-3xl font-bold mb-8 pt-10">Runway Moments</h3>
+        <h3 className="text-3xl font-bold mb-8 pt-10 px-6">Runway Moments</h3>
         <VideoCarousel videos={videos} />
       </motion.section>
 

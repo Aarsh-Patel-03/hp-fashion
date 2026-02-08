@@ -3,12 +3,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage.jsx";
 import Home from "./pages/Home.jsx";
 import AllProductsPage from "./pages/AllProductsPage.jsx";
-import AdminDashboard from "./admin/AdminDashboard.jsx";
-import Categories from "./admin/Category/Categories.jsx";
-import Products from "./admin/Products/Products.jsx";
+import AdminDashboard from "./Admin/AdminDashboard.jsx";
+import Categories from "./Admin/Category/Categories.jsx";
+import Products from "./Admin/Products/Products.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AdminLayout from "./admin/AdminLayout.jsx";
+import AdminLayout from "./Admin/AdminLayout.jsx";
 
 export default function App() {
   return (

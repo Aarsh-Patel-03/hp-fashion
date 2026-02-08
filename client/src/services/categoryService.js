@@ -34,3 +34,27 @@ export const deleteCategory = async (id) => {
 
   return result;
 };
+
+export const updateCategory = async (id, data) => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/categories/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.message || "Failed to update category");
+    }
+
+    return result;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Failed to update category"
+    );
+  }
+};

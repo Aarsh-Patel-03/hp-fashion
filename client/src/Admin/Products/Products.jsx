@@ -1,37 +1,37 @@
 import { useState } from "react";
 import { Plus } from "lucide-react";
-import ProductTable from "./ProductTable";
+import ProductTable from "./ProductGrid";
 import AddEditProductModal from "./AddEditProductModal";
+import { createProduct } from "../../services/productService";
+import { toast } from "react-toastify";
 
-const initialProducts = [
-  {
-    id: 1,
-    name: "Men Denim Jacket",
-    category: "Men",
-    price: 2999,
-    stock: 12,
-    status: "active",
-    images: [],
-    description: "Premium denim jacket",
-  },
-];
 
 export default function Products() {
-  const [products, setProducts] = useState(initialProducts);
+  const [products, setProducts] = useState();
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState(null);
 
   const handleSave = (product) => {
-    if (editing) {
-      setProducts((prev) =>
-        prev.map((p) => (p.id === editing.id ? product : p))
-      );
-    } else {
-      setProducts((prev) => [
-        ...prev,
-        { ...product, id: Date.now() },
-      ]);
-    }
+
+    createProduct(product).then(() => {
+      toast.success("Product created successfully");
+    }).catch((err) => {
+      toast.error("Failed to create product");
+    });
+
+
+
+
+    // if (editing) {
+    //   setProducts((prev) =>
+    //     prev.map((p) => (p.id === editing.id ? product : p))
+    //   );
+    // } else {
+    //   setProducts((prev) => [
+    //     ...prev,
+    //     { ...product, id: Date.now() },
+    //   ]);
+    // }
     setOpen(false);
     setEditing(null);
   };

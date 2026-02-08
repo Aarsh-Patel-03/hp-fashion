@@ -13,13 +13,14 @@ export default function CategoryTable({
       </div>
     );
   }
+
   return (
     <div className="bg-white rounded-xl shadow overflow-hidden">
       <table className="w-full">
         <thead className="bg-gray-100 text-sm">
           <tr>
             <th className="text-left px-6 py-3">Category</th>
-            <th>Status</th>
+            <th className="text-center">Status</th>
             <th className="text-right px-6">Actions</th>
           </tr>
         </thead>
@@ -31,12 +32,10 @@ export default function CategoryTable({
               <td className="text-center">
                 <button
                   onClick={() => onToggleStatus(cat._id)}
-                  className={`px-3 py-1 rounded-full text-xs
-                  ${
-                    cat.status === "active"
+                  className={`px-3 py-1 rounded-full text-xs ${cat.status === "active"
                       ? "bg-green-100 text-green-700"
                       : "bg-gray-200 text-gray-600"
-                  }`}
+                    }`}
                 >
                   {cat.status}
                 </button>

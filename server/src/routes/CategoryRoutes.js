@@ -1,68 +1,50 @@
-const express = require("express");
-const Category = require("../models/Category");
+import express from "express";
+import {
+  createCategory,
+  getAllCategories,
+  updateCategory,
+  deleteCategory,
+} from "../controllers/categoryController.js";
 
 const router = express.Router();
 
+/* ================= CREATE ================= */
 router.post("/", async (req, res) => {
   try {
-    const { id, name, status } = req.body;
-
-    if (id) {
-      const updatedCategory = await Category.findByIdAndUpdate(
-        id,
-        { name, status },
-        { new: true, runValidators: true }
-      );
-
-      if (!updatedCategory) {
-        return res.status(404).json({ message: "Category not found" });
-      }
-
-      return res.status(200).json(updatedCategory);
-    }
-
-    const existingCategory = await Category.findOne({ name });
-    if (existingCategory) {
-      return res
-        .status(400)
-        .json({ message: "Category already exists" });
-    }
-
-    const newCategory = await Category.create({
-      name,
-      status,
-    });
-
-    res.status(201).json(newCategory);
+    const category = await createCategory(req.body);
+    res.status(201).json(category);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
 
-
-
+/* ================= GET ALL ================= */
 router.get("/", async (req, res) => {
-    console.log("Fetching categories...");
   try {
-    const categories = await Category.find();
-    console.log("Categories fetched:", categories);
+    const categories = await getAllCategories();
     res.json(categories);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
+/* ================= UPDATE ================= */
+router.put("/:id", async (req, res) => {
+  try {
+    const updatedCategory = await updateCategory(
+      req.params.id,
+      req.body
+    );
+    res.json(updatedCategory);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
 
+/* ================= DELETE ================= */
 router.delete("/:id", async (req, res) => {
   try {
-    const { id } = req.params;
-
-    const deletedCategory = await Category.findByIdAndDelete(id);
-
-    if (!deletedCategory) {
-      return res.status(404).json({ message: "Category not found" });
-    }
-
+    const deletedCategory = await deleteCategory(req.params.id);
     res.json({
       message: "Category deleted successfully",
       id: deletedCategory._id,
@@ -72,4 +54,4 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

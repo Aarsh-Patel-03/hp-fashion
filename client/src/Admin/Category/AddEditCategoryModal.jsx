@@ -1,6 +1,8 @@
 import { X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { createCategory } from "../../services/categoryService";
+import { createCategory, updateCategory } from "../../services/categoryService";
+import { toast } from "react-toastify";
+
 export default function AddEditCategoryModal({
   open,
   onClose,
@@ -13,34 +15,40 @@ export default function AddEditCategoryModal({
   });
 
   useEffect(() => {
-    if (initialData) setForm(initialData);
-
-  }, [initialData]);
+    if (initialData) {
+      setForm({
+        name: initialData.name,
+        status: initialData.status,
+      });
+    } else {
+      setForm({ name: "", status: "active" });
+    }
+  }, [initialData, open]);
 
   if (!open) return null;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSave(form);
+
+    try {
+      if (initialData) {
+        await updateCategory(initialData._id, form);
+        toast.success("Category updated");
+      } else {
+        await createCategory(form);
+        toast.success("Category added");
+      }
+
+      onSave();
+      onClose();
+    } catch (err) {
+      toast.error(err.message);
+    }
   };
-
-  const handleAddCategory = async () => {
-  try {
-    await createCategory({
-      name: form.name,
-      status: form.status,
-    });
-
-    alert("Category added successfully");
-  } catch (err) {
-    alert(err.message);
-  }
-};
 
   return (
     <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
       <div className="bg-white rounded-xl w-full max-w-md p-6">
-        {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold">
             {initialData ? "Edit Category" : "Add Category"}
@@ -50,7 +58,6 @@ export default function AddEditCategoryModal({
           </button>
         </div>
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             required
@@ -84,7 +91,6 @@ export default function AddEditCategoryModal({
             <button
               type="submit"
               className="px-4 py-2 bg-black text-white rounded-lg"
-              onClick={handleAddCategory}
             >
               Save
             </button>

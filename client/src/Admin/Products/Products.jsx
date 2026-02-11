@@ -1,26 +1,41 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Plus } from "lucide-react";
 import ProductTable from "./ProductGrid";
 import AddEditProductModal from "./AddEditProductModal";
-import { createProduct } from "../../services/productService";
+import {
+  createProduct,
+  getProducts,
+  deleteProduct,
+} from "../../services/productService";
 import { toast } from "react-toastify";
-
 
 export default function Products() {
   const [products, setProducts] = useState();
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState(null);
 
+  useEffect(() => {
+    getProducts()
+      .then((data) => {
+        setProducts(data);
+      })
+      .catch((err) => {
+        toast.error("Failed to fetch products");
+      });
+  }, []);
+
   const handleSave = (product) => {
-
-    createProduct(product).then(() => {
-      toast.success("Product created successfully");
-    }).catch((err) => {
-      toast.error("Failed to create product");
-    });
-
-
-
+    console.log(product);
+    createProduct(product)
+      .then(() => {
+        toast.success("Product created successfully");
+        getProducts().then((data) => {
+          setProducts(data);
+        });
+      })
+      .catch((err) => {
+        toast.error("Failed to create product");
+      });
 
     // if (editing) {
     //   setProducts((prev) =>
@@ -37,7 +52,14 @@ export default function Products() {
   };
 
   const handleDelete = (id) => {
-    setProducts((prev) => prev.filter((p) => p.id !== id));
+    deleteProduct(id)
+      .then(() => {
+        toast.success("Product deleted successfully");
+        setProducts((prev) => prev.filter((p) => p._id !== id));
+      })
+      .catch((err) => {
+        toast.error("Failed to delete product");
+      });
   };
 
   return (

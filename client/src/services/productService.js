@@ -8,12 +8,11 @@ export const createProduct = async (productData) => {
         formData.append("name", productData.name);
         formData.append("price", productData.price);
         formData.append("stock", productData.stock);
-        formData.append("status", productData.status);
         formData.append("description", productData.description || "");
 
         // Categories (multiple)
         productData.categories?.forEach((catId) => {
-            formData.append("categories[]", catId);
+            formData.append("categories", catId);
         });
 
         // Images (multiple)
@@ -23,6 +22,7 @@ export const createProduct = async (productData) => {
         const response = await fetch(`${BASE_URL}/api/products`, {
             method: "POST",
             body: formData,
+            credentials: "include",
         });
         const data = await response.json();
 

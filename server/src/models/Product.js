@@ -11,18 +11,14 @@ const productSchema = new mongoose.Schema(
             { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
         ],
 
+        status: { type: String, default: "active" },
+
         images: [
             {
                 url: String,
                 public_id: String,
             },
         ],
-
-        status: {
-            type: String,
-            enum: ["active", "inactive"],
-            default: "active",
-        },
     },
     { timestamps: true }
 );

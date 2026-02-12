@@ -1,5 +1,5 @@
-// const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
-const BASE_URL = import.meta.env.VITE_API_URL || "https://hp-fashion.vercel.app";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 
 export const getCategories = async () => {
   const res = await fetch(`${BASE_URL}/api/categories`);

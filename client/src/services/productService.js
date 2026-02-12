@@ -1,5 +1,4 @@
-// const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
-const BASE_URL = import.meta.env.VITE_API_URL || "https://hp-fashion.vercel.app";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 /* ================= CREATE OR UPDATE ================= */
 export const createProduct = async (productData) => {

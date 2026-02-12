@@ -16,8 +16,8 @@ function ProductSection({ title,products=[],allProducts=false }) {
       </div>}
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {products?.products.map((item) => (
-            <ProductCard key={item.id} product={item} setSelectedProduct={setSelectedProduct} />
+        {products.map((item) => (
+            <ProductCard key={item._id} product={item} setSelectedProduct={setSelectedProduct} />
         ))}
       </div>
     </section>

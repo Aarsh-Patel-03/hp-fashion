@@ -24,7 +24,7 @@ export default function ProductCard({
             <div className="relative h-56 bg-gray-100 flex items-center justify-center overflow-hidden">
                 {hasImage ? (
                     <img
-                        src={product.images[0]}
+                        src={product.images[0].url}
                         alt={product.name}
                         className="h-full w-full object-cover
                        group-hover:scale-110 transition-transform duration-500"

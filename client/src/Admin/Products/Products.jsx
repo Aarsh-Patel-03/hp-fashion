@@ -17,6 +17,7 @@ export default function Products() {
   useEffect(() => {
     getProducts()
       .then((data) => {
+        console.log("Products fetched:", data);
         setProducts(data);
       })
       .catch((err) => {

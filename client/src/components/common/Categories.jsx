@@ -1,5 +1,5 @@
 function Categories() {
-  const categories = ["Men", "Women", "Kids", "Accessories"];
+  const categories = ["Men", "Women", "Kids", "More"];
 
   return (
     <section className="px-6 md:px-16 py-8">

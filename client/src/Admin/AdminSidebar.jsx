@@ -81,7 +81,7 @@ export default function AdminSidebar({ isOpen, onClose }) {
         </nav>
 
         {/* ================= LOGOUT ================= */}
-        <div className="px-4 py-4 border-t border-white/10">
+        <div className="px-4 py-4 border-t border-white/10 sticky bottom-10">
           <button
             onClick={logout}
             className="flex items-center gap-3 px-4 py-3 w-full rounded-lg text-gray-400 hover:bg-red-500/10 hover:text-red-500 transition"

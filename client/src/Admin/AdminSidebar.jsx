@@ -1,11 +1,5 @@
 import { NavLink } from "react-router-dom";
-import {
-  LayoutDashboard,
-  Shirt,
-  Layers,
-  LogOut,
-  X,
-} from "lucide-react";
+import { LayoutDashboard, Shirt, Layers, LogOut, X } from "lucide-react";
 
 const menuItems = [
   {
@@ -28,9 +22,9 @@ const menuItems = [
 
 export default function AdminSidebar({ isOpen, onClose }) {
   const logout = () => {
-  localStorage.removeItem("adminToken");
-  window.location.reload();
-};
+    localStorage.removeItem("adminToken");
+    window.location.reload();
+  };
   return (
     <>
       {/* Overlay (mobile only) */}
@@ -68,9 +62,10 @@ export default function AdminSidebar({ isOpen, onClose }) {
               onClick={onClose}
               className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-3 rounded-lg transition
-                ${isActive
-                  ? "bg-pink-500 text-white"
-                  : "text-gray-400 hover:bg-white/10 hover:text-white"
+                ${
+                  isActive
+                    ? "bg-pink-500 text-white"
+                    : "text-gray-400 hover:bg-white/10 hover:text-white"
                 }`
               }
             >
@@ -78,18 +73,17 @@ export default function AdminSidebar({ isOpen, onClose }) {
               <span className="text-sm font-medium">{title}</span>
             </NavLink>
           ))}
+          {/* ================= LOGOUT ================= */}
+          <div className="px-4 py-4 border-t border-white/10 absolute bottom-0 w-full">
+            <button
+              onClick={logout}
+              className="flex items-center gap-3 px-4 py-3 w-full rounded-lg text-gray-400 hover:bg-red-500/10 hover:text-red-500 transition"
+            >
+              <LogOut size={20} />
+              <span className="text-sm font-medium">Logout</span>
+            </button>
+          </div>
         </nav>
-
-        {/* ================= LOGOUT ================= */}
-        <div className="px-4 py-4 border-t border-white/10 sticky bottom-10">
-          <button
-            onClick={logout}
-            className="flex items-center gap-3 px-4 py-3 w-full rounded-lg text-gray-400 hover:bg-red-500/10 hover:text-red-500 transition"
-          >
-            <LogOut size={20} />
-            <span className="text-sm font-medium">Logout</span>
-          </button>
-        </div>
       </aside>
     </>
   );

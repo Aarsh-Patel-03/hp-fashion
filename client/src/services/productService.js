@@ -51,8 +51,8 @@ export const createProduct = async (productData) => {
 };
 
 /* ================= GET ALL ================= */
-export const getProducts = async () => {
-  const res = await fetch(`${BASE_URL}/api/products`);
+export const getProducts = async (limit=0,category=[]) => {
+  const res = await fetch(`${BASE_URL}/api/products?limit=${limit}&category=${category}`);
   return await res.json();
 };
 

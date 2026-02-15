@@ -101,7 +101,11 @@ export const upsertProduct = async (req, res) => {
         .populate("categories", "name");
 
       console.log("✅ Product Updated:", product._id);
-      return res.json(updatedProduct);
+      return res.json({
+        success: true,
+        message: "Product updated successfully",
+        data: updatedProduct,
+      });
     }
 
     /* =========================================================
@@ -117,7 +121,11 @@ export const upsertProduct = async (req, res) => {
     });
 
     console.log("✅ Product Created:", product._id);
-    res.status(201).json(product);
+    res.status(201).json({
+      success: true,
+      message: "Product created successfully",
+      data: product,
+    });
 
   } catch (error) {
     console.error("❌ Upsert Product Error:", error);

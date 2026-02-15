@@ -42,7 +42,7 @@ export const createProduct = async (productData) => {
     if (!response.ok) {
       throw new Error(data.message);
     }
-
+    console.log("Product upserted successfully:",data);
     return data;
 
   } catch (error) {

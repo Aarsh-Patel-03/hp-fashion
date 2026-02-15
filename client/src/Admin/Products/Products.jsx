@@ -20,7 +20,6 @@ export default function Products() {
   useEffect(() => {
     getProducts()
       .then((data) => {
-        console.log("Products fetched:", data);
         setProducts(data);
       })
       .catch((err) => {
@@ -31,16 +30,20 @@ export default function Products() {
   }, []);
 
   const handleSave = (product) => {
+    setLoading(true);
     console.log(product);
     createProduct(product)
-      .then(() => {
-        toast.success("Product created successfully");
+      .then((res) => {
+        toast.success(res.message);
         getProducts().then((data) => {
           setProducts(data);
         });
       })
       .catch((err) => {
         toast.error("Failed to create product");
+      })
+      .finally(()=>{
+        setLoading(false);
       });
 
     // if (editing) {
@@ -58,6 +61,7 @@ export default function Products() {
   };
 
   const handleDelete = (id) => {
+    setLoading(true);
     deleteProduct(id)
       .then(() => {
         toast.success("Product deleted successfully");
@@ -65,6 +69,9 @@ export default function Products() {
       })
       .catch((err) => {
         toast.error("Failed to delete product");
+      })
+      .finally(()=>{
+        setLoading(false);
       });
   };
   if (loading) return <Loader />;

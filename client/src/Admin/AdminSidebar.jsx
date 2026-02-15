@@ -36,7 +36,7 @@ export default function AdminSidebar({ isOpen, onClose }) {
       )}
 
       <aside
-        className={`fixed md:static top-0 left-0 z-50 h-screen w-64 bg-black text-white flex flex-col
+        className={`fixed md:static top-0 left-0 z-50 h-[100%] w-64 bg-black text-white flex flex-col
         transform transition-transform duration-300
         ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
       >

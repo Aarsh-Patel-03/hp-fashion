@@ -1,6 +1,6 @@
 import Product from "../models/Product.js";
 import cloudinary from "../config/cloudinary.js";
-
+import Category from "../models/Category.js";
 /* =========================================================
    UPSERT PRODUCT (CREATE + UPDATE)
 ========================================================= */
@@ -138,17 +138,51 @@ export const upsertProduct = async (req, res) => {
 /* =========================================================
    GET ALL PRODUCTS
 ========================================================= */
+
 export const getProducts = async (req, res) => {
   try {
-    const products = await Product.find()
+    const limit = parseInt(req.query.limit) || 0;
+    const category = req.query.category;
+
+    let filter = {};
+
+    if (category && category !== "null" && category !== "undefined") {
+      const categoryNames = category.split(",");
+
+      if (categoryNames.length > 0 && categoryNames[0] !== "") {
+        // Create case-insensitive regex for each category
+        const regexArray = categoryNames.map(
+          (name) => new RegExp(`^${name}$`, "i")
+        );
+
+        // Find categories ignoring case
+        const categories = await Category.find({
+          name: { $in: regexArray },
+        });
+
+        const categoryIds = categories.map((cat) => cat._id);
+
+        filter.categories = { $in: categoryIds };
+      }
+    }
+
+    const query = Product.find(filter)
       .populate("categories", "name")
       .sort({ createdAt: -1 });
+
+    if (limit > 0) {
+      query.limit(limit);
+    }
+
+    const products = await query;
 
     res.json(products);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
+
 
 /* =========================================================
    GET SINGLE PRODUCT

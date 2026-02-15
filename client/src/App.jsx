@@ -26,7 +26,7 @@ export default function App() {
 
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/all-products" element={<AllProductsPage />} />
+        <Route path="/all-products/:category" element={<AllProductsPage />} />
 
 
         {/* Admin Routes */}

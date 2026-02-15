@@ -7,10 +7,13 @@ import {
   getProducts,
   deleteProduct,
 } from "../../services/productService";
+import Loader from "../common/Loader";
 import { toast } from "react-toastify";
 
 export default function Products() {
-  const [products, setProducts] = useState();
+
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState(null);
 
@@ -22,6 +25,8 @@ export default function Products() {
       })
       .catch((err) => {
         toast.error("Failed to fetch products");
+      }).finally(()=>{
+        setLoading(false);
       });
   }, []);
 
@@ -62,7 +67,7 @@ export default function Products() {
         toast.error("Failed to delete product");
       });
   };
-
+  if (loading) return <Loader />;
   return (
     <div>
       {/* Header */}

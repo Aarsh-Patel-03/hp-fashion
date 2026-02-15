@@ -4,6 +4,7 @@ import AddEditCategoryModal from "./AddEditCategoryModal";
 import CategoryTable from "./CategoryTable";
 import { getCategories, deleteCategory } from "../../services/categoryService";
 import { toast } from "react-toastify";
+import Loader from "../common/Loader";
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
@@ -36,7 +37,7 @@ export default function Categories() {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
 
   return (
     <div>
